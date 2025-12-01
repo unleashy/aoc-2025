@@ -13,3 +13,7 @@ let count x xs =
   xs
   |> Seq.filter ((=) x)
   |> Seq.length
+
+let floorRem a n =
+  let div = (float a / float n) |> floor |> int
+  a - n * div
