@@ -6,9 +6,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Etc.fs" />
         <Content Include="Inputs\*.txt" />
+        <Compile Include="Etc.fs" />
         <Compile Include="Day1.fs" />
+        <Compile Include="Day2.fs" />
         <Compile Include="Program.fs"/>
     </ItemGroup>
 

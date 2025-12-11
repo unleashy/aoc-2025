@@ -7,7 +7,7 @@ let (|Empty|Str|) (s: string) =
     Empty
 
 let lines (s: string) =
-  s.Split("\n")
+  s.Split('\n')
 
 let count x xs =
   xs

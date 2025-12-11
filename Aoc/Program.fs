@@ -41,4 +41,4 @@ let go info =
 
   printfn $"%A{result}"
 
-go { Day = 1; Part = 2; }
+go { Day = 2; Part = 1; }
