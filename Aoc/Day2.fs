@@ -1,17 +1,30 @@
 ﻿module Aoc.Day2
 
-let private numberLength n =
-  1.0 + floor (log10 n)
+let inline private numberLength n =
+  1 + int (log10 (double n))
 
-let private shiftHalf n =
-  floor (n / 10.0**(numberLength n / 2.0))
+let private shift k n =
+  floor (n / 10.0**(int k))
 
-let private intoDoublet n =
-  n * 10.0**(numberLength n) + n
+// this forms a semigroup!
+let private concatNumber a b =
+  a * 10.0**(numberLength b) + b
 
-let private isDoublet n =
+let private replicateNumber k n =
+  Seq.replicate k n
+  |> Seq.reduce concatNumber
+
+let private isReplication k n =
   let n = double n
-  n = intoDoublet (shiftHalf n)
+  let l = numberLength n
+  l % k = 0 && n = replicateNumber k (shift (l - l / k) n)
+
+let private isDoublet =
+  isReplication 2
+
+let rec private isAnyReplication n =
+  seq { 2 .. numberLength n }
+  |> Seq.exists (fun k -> isReplication k n)
 
 let private parse (input: string) =
   input
@@ -26,5 +39,13 @@ let part1 input =
   |> Seq.collect (fun (left, right) ->
     seq { left .. right }
     |> Seq.filter isDoublet
+  )
+  |> Seq.sum
+
+let part2 input =
+  parse input
+  |> Seq.collect (fun (left, right) ->
+    seq { left .. right }
+    |> Seq.filter isAnyReplication
   )
   |> Seq.sum
